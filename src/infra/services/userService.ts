@@ -17,7 +17,7 @@ export class UserService {
     return this.userRepository.getById(id);
   }
   async create(userData: createUserDTO): Promise<User> {
-    // Verifica se o email já está cadastrado
+    // Verificacao de email 
     const existingUser = await this.userRepository.findByEmail(userData.email);
     if (existingUser) {
       throw new Error("this email is already in use");
