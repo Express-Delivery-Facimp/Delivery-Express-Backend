@@ -9,23 +9,21 @@ export default class UserRepository implements IRepositoryInterface {
   async getAll(): Promise<User[]> {
     const users = await this.prismaClient.user.findMany();
 
-    
+    return users;
   }
 
   async getById(id: string): Promise<User | null> {
     const user = await this.prismaClient.user.findUnique({
       where: { id: id },
     });
-
-    
+    return user;
   }
 
   async findByEmail(email: string): Promise<User | null> {
     const user = await this.prismaClient.user.findUnique({
       where: { email },
     });
-
-    
+    return user;
   }
 
   async update(id: string, user: updateUserDTO): Promise<User> {
@@ -35,8 +33,7 @@ export default class UserRepository implements IRepositoryInterface {
         ...user,
       },
     });
-
-    
+    return updatedUser;
   }
 
   async create(userData: createUserDTO): Promise<User> {
@@ -45,7 +42,7 @@ export default class UserRepository implements IRepositoryInterface {
         ...userData,
       },
     });
-    
+    return user;
   }
   async delete(id: string): Promise<void> {
     await this.prismaClient.user.delete({

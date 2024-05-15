@@ -29,8 +29,8 @@ class App {
     // Health Check
     this.server.get(
       "/api/delivery/healthcheck",
-      (request: Request, response: Response) => {
-        return response.status(200).json({ Ok: true });
+      (Request: Request, Response: Response) => {
+        return Response.status(200).json({ Ok: true });
       },
     );
 
