@@ -17,19 +17,25 @@ export class UserService {
     return this.userRepository.getById(id);
   }
   async create(userData: createUserDTO): Promise<User> {
+    console.log("Starting user creation process")
+
     // Verificacao de email 
+    console.log("Checking if email exists")
     const existingUser = await this.userRepository.findByEmail(userData.email);
     if (existingUser) {
       throw new Error("this email is already in use");
     }
 
+    console.log("Generating salt");
     const salt = await bcrypt.genSalt(12);
     const hashPassword = await bcrypt.hash(userData.password, salt);
     userData.password = hashPassword;
 
     // Criar o usuário
+    console.log("Creating user in the repository");
     const createdUser = await this.userRepository.create(userData);
 
+    console.log("User created successfully");
     return createdUser;
   }
 

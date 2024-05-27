@@ -1,0 +1,15 @@
+  # Use postgres/example user/password credentials
+version: '3.9'
+
+services:
+  API-DELIVERY:
+    image: postgres
+    restart: always
+    ports: 
+     - 5436:5432
+    shm_size: 128mb
+    environment:
+      POSTGRES_PASSWORD: rootmaster
+      POSTGRES_USER: rootmaster
+      POSTGRES_DB: express
+      PG_DATA: API-DELIVERY://var/lib/postgresql/data

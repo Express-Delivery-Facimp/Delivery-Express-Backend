@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, User as PrismaUser } from "@prisma/client";
 import IRepositoryInterface from "../../../../repositories/IRepositoryInterface";
 import User from "../../entities/user";
 import { createUserDTO, updateUserDTO } from "../DTO/userDTO";
@@ -23,6 +23,7 @@ export default class UserRepository implements IRepositoryInterface {
     const user = await this.prismaClient.user.findUnique({
       where: { email },
     });
+
     return user;
   }
 
@@ -37,13 +38,14 @@ export default class UserRepository implements IRepositoryInterface {
   }
 
   async create(userData: createUserDTO): Promise<User> {
-    const user = await this.prismaClient.user.create({
-      data: {
-        ...userData,
-      },
-    });
-    return user;
-  }
+      const user: PrismaUser = await this.prismaClient.user.create({
+        data: {
+          ...userData,
+        },
+      })
+      return user
+    }
+      
   async delete(id: string): Promise<void> {
     await this.prismaClient.user.delete({
       where: {

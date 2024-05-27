@@ -20,6 +20,13 @@ class App {
   async connection() {}
 
   middlewares() {
+    this.server.use(express.json());
+    this.server.use(
+      express.urlencoded({
+        extended: true,
+        limit: `${process.env.JSON_LIMIT_SIZE}`,
+      }),
+    );
     this.server.use(
       cors({ credentials: true, origin: process.env.ORIGIN_URL }),
     );

@@ -1,14 +1,15 @@
 // Modules Imports
-import app from './app';
+import app from "./app";
 
 // Dotenv Config
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
+import express, { Request, Response } from "express";
 dotenv.config();
 
+const PORT = process.env.PORT || 9896;
 
-const PORT = process.env.PORT || 3333;
-
+app.use(express.json())
 app.listen(PORT, () => {
-	console.clear();
-	console.log(`⚡ Server is running on port ${PORT}.`);
+  console.clear();
+  console.log(`⚡ Server is running on port ${PORT}.`);
 });
